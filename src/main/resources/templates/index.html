@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>스프링 시큐리티 데모</title>
 </head>
 <body>
-    <h2>!Home 화면입니다!</h2>
+<h1>스프링 시큐리티 데모</h1>
+<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+    Logged in user: <span sec:authentication="name"></span> | Roles: <span sec:authentication="principal.authorities"></span>
+    <div>
+        <form action="#" th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <li><a href="/user">User</a></li>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <li><a href="/login">로그인</a></li>
+</div>
 </body>
 </html>
