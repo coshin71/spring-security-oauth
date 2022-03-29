@@ -22,7 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().permitAll()
             .and()
             .formLogin()
-            .loginPage("/login");
+            .loginPage("/loginForm")
+            .loginProcessingUrl("/login")
+            .defaultSuccessUrl("/");
     }
 
     //PasswordEncoder 확인하기

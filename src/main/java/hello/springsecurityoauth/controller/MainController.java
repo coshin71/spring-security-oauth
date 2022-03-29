@@ -5,10 +5,7 @@ import hello.springsecurityoauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,30 +20,24 @@ public class MainController {
     }
 
     @GetMapping("/user")
-    public String user() {
+    public @ResponseBody String user() {
         return "user";
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public @ResponseBody String admin() {
         return "admin";
     }
 
     @GetMapping("/manager")
-    public String manager() {
+    public @ResponseBody String manager() {
         return "manager";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String loginForm() {
         return "loginForm";
     }
-
-    @PostMapping("/login")
-    public String login() {
-        return "/";
-    }
-
     @GetMapping("/signup")
     public String signupForm() {
         return "signupForm";
@@ -60,6 +51,6 @@ public class MainController {
         user.setPassword(encPassword);
         userRepository.save(user);
 
-        return "redirect:/login";
+        return "redirect:/loginForm";
     }
 }
