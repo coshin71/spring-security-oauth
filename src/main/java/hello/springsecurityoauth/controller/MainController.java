@@ -3,6 +3,8 @@ package hello.springsecurityoauth.controller;
 import hello.springsecurityoauth.domain.User;
 import hello.springsecurityoauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +54,17 @@ public class MainController {
         userRepository.save(user);
 
         return "redirect:/loginForm";
+    }
+
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
+    @GetMapping("/test")
+    public @ResponseBody String test() {
+        return "테스트";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/hello")
+    public @ResponseBody String hello() {
+        return "hello";
     }
 }
