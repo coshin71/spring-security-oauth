@@ -1,5 +1,7 @@
 package hello.springsecurityoauth.config;
 
+import hello.springsecurityoauth.config.oauth.PrincipalOauth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,7 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -23,10 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
             .anyRequest().permitAll()
             .and()
-            .formLogin()
-            .loginPage("/loginForm")
-            .loginProcessingUrl("/login")
-            .defaultSuccessUrl("/");
+                .formLogin()
+                .loginPage("/loginForm")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+            .and()
+                .oauth2Login()
+                //.loginPage("/loginForm") //?
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
     }
 
     //PasswordEncoder 확인하기

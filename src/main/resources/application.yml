@@ -13,6 +13,17 @@ spring:
         #        show_sql: true
         format_sql: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 459773521146-ar955t0h7p4mdo3de4n1f8d4tb8a2fpc.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
@@ -22,4 +33,6 @@ server:
     session:
       tracking-modes: cookie
       timeout: 1800
+
+
 
