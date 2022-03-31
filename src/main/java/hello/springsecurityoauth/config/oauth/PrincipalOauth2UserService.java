@@ -1,10 +1,7 @@
 package hello.springsecurityoauth.config.oauth;
 
 import hello.springsecurityoauth.config.auth.PrincipalDetails;
-import hello.springsecurityoauth.config.oauth.provider.FacebookUserInfo;
-import hello.springsecurityoauth.config.oauth.provider.GoogleUserInfo;
-import hello.springsecurityoauth.config.oauth.provider.NaverUserInfo;
-import hello.springsecurityoauth.config.oauth.provider.OAuth2UserInfo;
+import hello.springsecurityoauth.config.oauth.provider.*;
 import hello.springsecurityoauth.domain.User;
 import hello.springsecurityoauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +38,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
             oAuth2UserInfo = new NaverUserInfo((Map<String, Object>) oAuth2User.getAttributes().get("response"));
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
         }
 
         String provider = oAuth2UserInfo.getProvider();
         String providerId = oAuth2UserInfo.getProviderId();
-        String name = oAuth2UserInfo.getName();
-        String username = name + "_" + provider + "_" + providerId;
+        String username = provider + "_" + providerId;
         String password = passwordEncoder.encode(UUID.randomUUID().toString());
         String email = oAuth2UserInfo.getEmail();
         String role = "ROLE_USER";
