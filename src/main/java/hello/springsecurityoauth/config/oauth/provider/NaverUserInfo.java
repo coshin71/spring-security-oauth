@@ -2,22 +2,22 @@ package hello.springsecurityoauth.config.oauth.provider;
 
 import java.util.Map;
 
-public class GoogleUserInfo implements OAuth2UserInfo {
+public class NaverUserInfo implements OAuth2UserInfo {
 
     private Map<String, Object> attributes;
 
-    public GoogleUserInfo(Map<String, Object> attributes) {
+    public NaverUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
     }
 
     @Override
     public String getProviderId() {
-        return (String) attributes.get("sub");
+        return (String) attributes.get("id");
     }
 
     @Override
     public String getProvider() {
-        return "google";
+        return "naver";
     }
 
     @Override

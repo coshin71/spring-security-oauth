@@ -10,7 +10,7 @@ public class PasswordConfig {
 
     //PasswordEncoder 확인하기 // 보통 BScrptPasswordEncoder로 하는지 PasswordEncoder로 하는지 확인.
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

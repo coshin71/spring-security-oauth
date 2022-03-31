@@ -2,7 +2,7 @@ package hello.springsecurityoauth.config.oauth.provider;
 
 import java.util.Map;
 
-public class FacebookUserInfo implements OAuth2UserInfo{
+public class FacebookUserInfo implements OAuth2UserInfo {
 
     private Map<String, Object> attributes;
 
@@ -12,7 +12,7 @@ public class FacebookUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getProviderId() {
-        return attributes.get("id").toString();
+        return (String) attributes.get("id");
     }
 
     @Override
@@ -22,11 +22,11 @@ public class FacebookUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getEmail() {
-        return attributes.get("email").toString();
+        return (String) attributes.get("email");
     }
 
     @Override
     public String getName() {
-        return attributes.get("name").toString();
+        return (String) attributes.get("name");
     }
 }

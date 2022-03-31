@@ -24,8 +24,9 @@ public class MainController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/test/login")
-    public @ResponseBody String testLogin(Authentication authentication,
-                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+    public @ResponseBody
+    String testLogin(Authentication authentication,
+                     @AuthenticationPrincipal PrincipalDetails userDetails) {
         System.out.println("=================== /test/login ===================");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         System.out.println("principalDetails = " + principalDetails.getUser());
@@ -35,8 +36,9 @@ public class MainController {
     }
 
     @GetMapping("/test/oauth/login")
-    public @ResponseBody String testOAuthLogin(Authentication authentication,
-                                          @AuthenticationPrincipal OAuth2User oAuth) {
+    public @ResponseBody
+    String testOAuthLogin(Authentication authentication,
+                          @AuthenticationPrincipal OAuth2User oAuth) {
         System.out.println("=================== /test/oauth/login ===================");
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         System.out.println("principalDetails = " + oAuth2User.getAttributes());
@@ -46,23 +48,26 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "index";
     }
 
     @GetMapping("/user")
-    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public @ResponseBody
+    String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("principalDetails.getUser() = " + principalDetails.getUser());
         return "user";
     }
 
     @GetMapping("/admin")
-    public @ResponseBody String admin() {
+    public @ResponseBody
+    String admin() {
         return "admin";
     }
 
     @GetMapping("/manager")
-    public @ResponseBody String manager() {
+    public @ResponseBody
+    String manager() {
         return "manager";
     }
 
@@ -70,6 +75,7 @@ public class MainController {
     public String loginForm() {
         return "loginForm";
     }
+
     @GetMapping("/signup")
     public String signupForm() {
         return "signupForm";
@@ -88,13 +94,15 @@ public class MainController {
 
     @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     @GetMapping("/test")
-    public @ResponseBody String test() {
+    public @ResponseBody
+    String test() {
         return "테스트";
     }
 
     @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/hello")
-    public @ResponseBody String hello() {
+    public @ResponseBody
+    String hello() {
         return "hello";
     }
 }
