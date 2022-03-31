@@ -23,6 +23,12 @@ spring:
             scope:
               - email
               - profile
+          facebook:
+            client-id: 766540228067011
+            client-secret: 55e97fae73dfa635a3fb5f262d251ef8
+            scope:
+              - email
+              - public_profile
 
 logging.level:
   org.hibernate.SQL: debug
